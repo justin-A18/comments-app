@@ -15,6 +15,10 @@ export const useFormStore = create<FormState>((set) => ({
 	isOpen: false,
 	mode: "create",
 	data: undefined,
-	onOpen: (mode, data) => set({ isOpen: true, mode, data }),
+	onOpen: (mode, data) => set({
+		isOpen: true,
+		mode,
+		data: mode === 'edit' ? data : undefined,
+	}),
 	onClose: () => set({ isOpen: false, data: undefined }),
 }));
