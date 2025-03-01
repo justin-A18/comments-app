@@ -2,12 +2,8 @@
 
 import { useGetAllCommentsQuery } from './_hooks/comment';
 
-import {
-	CommentForm,
-	CommentCard,
-	CommentHeader,
-	CommentSearchBar,
-} from './_components/comment';
+import { CommentForm, CommentCard, CommentHeader } from './_components/comment';
+import { Typography } from './_components/shared/typography';
 
 export default function Home() {
 	const { data, isLoading } = useGetAllCommentsQuery();
@@ -17,7 +13,7 @@ export default function Home() {
 			<CommentHeader />
 
 			<section className='flex flex-column gap-md'>
-				<CommentSearchBar />
+				<Typography className='text-center'>Lista de comentarios</Typography>
 
 				{isLoading && (
 					<div className='flex justify-center items-center'>Loading...</div>
