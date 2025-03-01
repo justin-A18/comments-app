@@ -52,7 +52,7 @@ export const CommentForm = () => {
 		if (data && mode === 'edit') {
 			reset(data);
 		}
-	}, [data, reset]);
+	}, [data, reset, mode]);
 
 	return (
 		<Modal
