@@ -12,6 +12,7 @@ import { commentSchema } from '@/app/_schemas';
 import { Button } from '../shared/button';
 import { Input } from '../shared/input';
 import { Modal } from '../shared/modal';
+import { TextArea } from '../shared/text-area';
 
 type CommentFormValues = z.infer<typeof commentSchema>;
 
@@ -81,7 +82,7 @@ export const CommentForm = () => {
 					error={errors.email?.message}
 				/>
 
-				<Input
+				<TextArea
 					{...register('body')}
 					placeholder='Escribe aqui un comentario'
 					label='Comentario'
