@@ -52,6 +52,8 @@ export const CommentForm = () => {
 		if (data && mode === 'edit') {
 			reset(data);
 		}
+
+		reset({});
 	}, [data, reset, mode]);
 
 	return (
