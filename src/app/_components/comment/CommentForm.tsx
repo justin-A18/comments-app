@@ -35,6 +35,8 @@ export const CommentForm = () => {
 				...values,
 				id: crypto.randomUUID(),
 			});
+
+			onClose();
 			return;
 		}
 
@@ -42,6 +44,8 @@ export const CommentForm = () => {
 			id: data!.id,
 			...values,
 		});
+
+		onClose();
 	};
 
 	useEffect(() => {
