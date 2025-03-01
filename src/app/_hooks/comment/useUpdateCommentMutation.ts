@@ -4,7 +4,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { updateCommentUseCase } from "@/core/use-cases/comment";
 import { apiFetcher } from "@/config/adapters/api.adapter";
 
-export const useUpdateAppointmentMutation = () => {
+export const useUpdateCommentMutation = () => {
 
 	const queryClient = useQueryClient();
 
