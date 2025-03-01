@@ -45,7 +45,7 @@ export const CommentForm = () => {
 	};
 
 	useEffect(() => {
-		if (data) {
+		if (data && mode === 'edit') {
 			reset(data);
 		}
 	}, [data, reset]);
