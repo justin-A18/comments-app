@@ -20,6 +20,13 @@ export const InputWrapper = styled.div<InputProps>`
 		color: #333;
 	}
 
+	span {
+		font-size: 12px;
+		color: #FF6A6A;
+		font-weight: 600;
+		margin-top: 5px;
+	}
+
 	.input-container {
 		display: flex;
 		align-items: center;

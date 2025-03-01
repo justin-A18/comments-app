@@ -10,7 +10,8 @@ export const CommentHeader = ({ onOpen }: CommentHeaderProps) => {
 		<header className='flex justify-end w-full'>
 			<Button
 				variant='withIcon'
-				onClick={onOpen}>
+				onClick={onOpen}
+				type='button'>
 				Crear comentario <CircleFadingPlus />
 			</Button>
 		</header>
