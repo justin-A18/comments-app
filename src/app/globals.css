@@ -185,17 +185,16 @@ li {
 .grid {
 	display: grid;
 	place-content: start;
-	place-items: center;
 	grid-template-columns: 1fr;
 }
 
-@media (min-width: 640px) {
+@media (min-width: 950px) {
 	.grid {
 		grid-template-columns: repeat(2, 1fr);
 	}
 }
 
-@media (min-width: 990px) {
+@media (min-width: 1400px) {
 	.grid {
 		grid-template-columns: repeat(3, 1fr);
 	}
@@ -205,6 +204,9 @@ li {
 
 .comment-card {
 	width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
 	min-height: 160px;
 	background-color: #f9f9f9;
 	border-radius: 0.5rem;

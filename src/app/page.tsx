@@ -24,7 +24,7 @@ export default function Home() {
 				)}
 
 				{data && !isLoading && (
-					<div className='w-full max-w-lg p-md grid grid-cols-3 gap-md'>
+					<div className='w-full p-md grid grid-cols-3 gap-md'>
 						{data?.map((comment) => (
 							<CommentCard
 								key={comment.id}
