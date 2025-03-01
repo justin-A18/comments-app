@@ -12,11 +12,21 @@ import { commentSchema } from '@/app/_schemas';
 import { Button } from '../shared/button';
 import { Input } from '../shared/input';
 import { Modal } from '../shared/modal';
+import {
+	useCreateCommentMutation,
+	useUpdateCommentMutation,
+} from '@/app/_hooks/comment';
 
 type CommentFormValues = z.infer<typeof commentSchema>;
 
 export const CommentForm = () => {
 	const { onClose, isOpen, data, mode } = useFormStore();
+
+	const { mutateAsync: createCommentMutate, isPending: isPendingCreate } =
+		useCreateCommentMutation();
+
+	const { mutateAsync: updateCommentMutate, isPending: isPendingUpdate } =
+		useUpdateCommentMutation();
 
 	const {
 		register,
@@ -27,8 +37,13 @@ export const CommentForm = () => {
 		resolver: zodResolver(commentSchema),
 	});
 
-	const onSubmit: SubmitHandler<CommentFormValues> = (data) => {
-		console.log(data);
+	const onSubmit: SubmitHandler<CommentFormValues> = (values) => {
+		if (mode === 'create') {
+			createCommentMutate(values);
+			return;
+		}
+
+		updateCommentMutate({ body: values, id: data!.id });
 	};
 
 	useEffect(() => {
@@ -71,7 +86,8 @@ export const CommentForm = () => {
 
 				<Button
 					variant='withIcon'
-					type='submit'>
+					type='submit'
+					disabled={isPendingCreate || isPendingUpdate}>
 					{mode === 'create' ? <CircleFadingPlus /> : <PencilLine />}
 					{mode === 'create' ? 'Crear comentario' : 'Editar comentario'}
 				</Button>

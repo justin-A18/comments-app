@@ -5,9 +5,11 @@ import { Button } from '../shared/button/Button';
 import { Typography } from '../shared/typography';
 import { CommentEntity } from '@/core/entity';
 import { useFormStore } from '@/app/_providers/store';
+import { useDeleteCommentMutation } from '@/app/_hooks/comment';
 
 export const CommentCard = ({ body, email, name, id }: CommentEntity) => {
 	const { onOpen } = useFormStore();
+	const { mutateAsync } = useDeleteCommentMutation();
 
 	return (
 		<article className='comment-card'>
@@ -23,7 +25,9 @@ export const CommentCard = ({ body, email, name, id }: CommentEntity) => {
 				</Typography>
 
 				<div className='flex gap-sm'>
-					<Button variant='icon'>
+					<Button
+						variant='icon'
+						onClick={() => mutateAsync(id)}>
 						<Trash size={20} />
 					</Button>
 
