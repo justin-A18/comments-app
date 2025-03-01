@@ -4,12 +4,11 @@ import { PenLine, Trash } from 'lucide-react';
 import { Button } from '../shared/button/Button';
 import { Typography } from '../shared/typography';
 import { CommentEntity } from '@/core/entity';
-import { useFormStore } from '@/app/_providers/store';
-import { useDeleteCommentMutation } from '@/app/_hooks/comment';
+import { useCommentStore, useFormStore } from '@/app/_providers/store';
 
 export const CommentCard = ({ body, email, name, id }: CommentEntity) => {
 	const { onOpen } = useFormStore();
-	const { mutateAsync } = useDeleteCommentMutation();
+	const { deleteComment } = useCommentStore();
 
 	return (
 		<article className='comment-card'>
@@ -27,7 +26,7 @@ export const CommentCard = ({ body, email, name, id }: CommentEntity) => {
 				<div className='flex gap-sm'>
 					<Button
 						variant='icon'
-						onClick={() => mutateAsync(id)}>
+						onClick={() => deleteComment(id)}>
 						<Trash size={20} />
 					</Button>
 

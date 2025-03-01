@@ -6,27 +6,19 @@ import { CircleFadingPlus, PencilLine } from 'lucide-react';
 import { useEffect } from 'react';
 import { z } from 'zod';
 
-import { useFormStore } from '@/app/_providers/store';
+import { useCommentStore, useFormStore } from '@/app/_providers/store';
 import { Typography } from '../shared/typography';
 import { commentSchema } from '@/app/_schemas';
 import { Button } from '../shared/button';
 import { Input } from '../shared/input';
 import { Modal } from '../shared/modal';
-import {
-	useCreateCommentMutation,
-	useUpdateCommentMutation,
-} from '@/app/_hooks/comment';
 
 type CommentFormValues = z.infer<typeof commentSchema>;
 
 export const CommentForm = () => {
 	const { onClose, isOpen, data, mode } = useFormStore();
 
-	const { mutateAsync: createCommentMutate, isPending: isPendingCreate } =
-		useCreateCommentMutation();
-
-	const { mutateAsync: updateCommentMutate, isPending: isPendingUpdate } =
-		useUpdateCommentMutation();
+	const { addComment, updateComment } = useCommentStore();
 
 	const {
 		register,
@@ -39,11 +31,17 @@ export const CommentForm = () => {
 
 	const onSubmit: SubmitHandler<CommentFormValues> = (values) => {
 		if (mode === 'create') {
-			createCommentMutate(values);
+			addComment({
+				...values,
+				id: crypto.randomUUID(),
+			});
 			return;
 		}
 
-		updateCommentMutate({ body: values, id: data!.id });
+		updateComment({
+			id: data!.id,
+			...values,
+		});
 	};
 
 	useEffect(() => {
@@ -86,8 +84,7 @@ export const CommentForm = () => {
 
 				<Button
 					variant='withIcon'
-					type='submit'
-					disabled={isPendingCreate || isPendingUpdate}>
+					type='submit'>
 					{mode === 'create' ? <CircleFadingPlus /> : <PencilLine />}
 					{mode === 'create' ? 'Crear comentario' : 'Editar comentario'}
 				</Button>
