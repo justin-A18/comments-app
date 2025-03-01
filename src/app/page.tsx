@@ -1,3 +1,7 @@
+'use client';
+
+import { useGetAllCommentsQuery } from './_hooks/comment';
+
 import {
 	CommentForm,
 	CommentCard,
@@ -6,6 +10,8 @@ import {
 } from './_components/comment';
 
 export default function Home() {
+	const { data, isLoading } = useGetAllCommentsQuery();
+
 	return (
 		<main className='w-full min-h-screen p-md flex flex-column gap-md'>
 			<CommentHeader />
@@ -13,35 +19,22 @@ export default function Home() {
 			<section className='flex flex-column gap-md'>
 				<CommentSearchBar />
 
-				<div className='w-full max-w-lg p-md grid grid-cols-3 gap-md'>
-					<CommentCard
-						id='1'
-						name='Comentario 1'
-						body='Cuerpo del comentario 1'
-						email='Yt4lB@example.com'
-					/>
-					<CommentCard
-						id='1'
-						name='Comentario 1'
-						body='Cuerpo del comentario 1'
-						email='Yt4lB@example.com'
-					/>
-					<CommentCard
-						id='1'
-						name='Comentario 1'
-						body='Cuerpo del comentario 1'
-						email='Yt4lB@example.com'
-					/>
-					<CommentCard
-						id='1'
-						name='Comentario 1'
-						body='Cuerpo del comentario 1'
-						email='Yt4lB@example.com'
-					/>
+				{isLoading && (
+					<div className='flex justify-center items-center'>Loading...</div>
+				)}
 
-					<CommentForm />
-				</div>
+				{data && !isLoading && (
+					<div className='w-full max-w-lg p-md grid grid-cols-3 gap-md'>
+						{data?.map((comment) => (
+							<CommentCard
+								key={comment.id}
+								{...comment}
+							/>
+						))}
+					</div>
+				)}
 			</section>
+			<CommentForm />
 		</main>
 	);
 }
