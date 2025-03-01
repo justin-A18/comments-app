@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Poppins } from 'next/font/google';
 import './globals.css';
 import StyledComponentsRegistry from './_lib/registry';
+import { TanStackProvider } from './_providers/query';
 
 const poppins = Poppins({
 	variable: '--font-poppins',
@@ -22,7 +23,9 @@ export default function RootLayout({
 	return (
 		<html lang='es'>
 			<body className={`${poppins.variable}`}>
-				<StyledComponentsRegistry>{children}</StyledComponentsRegistry>
+				<TanStackProvider>
+					<StyledComponentsRegistry>{children}</StyledComponentsRegistry>
+				</TanStackProvider>
 			</body>
 		</html>
 	);
