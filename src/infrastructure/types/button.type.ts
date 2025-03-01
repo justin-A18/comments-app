@@ -1,0 +1,1 @@
+export type VariantsButton = 'primary' | 'icon' | 'withIcon';
