@@ -1,8 +1,12 @@
+'use client';
+
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { CircleFadingPlus } from 'lucide-react';
+import { CircleFadingPlus, PencilLine } from 'lucide-react';
+import { useEffect } from 'react';
 import { z } from 'zod';
 
+import { useFormStore } from '@/app/_providers/store';
 import { Typography } from '../shared/typography';
 import { commentSchema } from '@/app/_schemas';
 import { Button } from '../shared/button';
@@ -11,16 +15,14 @@ import { Modal } from '../shared/modal';
 
 type CommentFormValues = z.infer<typeof commentSchema>;
 
-interface FormCommentProps {
-	isOpen: boolean;
-	onClose: () => void;
-}
+export const CommentForm = () => {
+	const { onClose, isOpen, data, mode } = useFormStore();
 
-export const CommentForm = ({ isOpen, onClose }: FormCommentProps) => {
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
+		reset,
 	} = useForm<CommentFormValues>({
 		resolver: zodResolver(commentSchema),
 	});
@@ -29,11 +31,19 @@ export const CommentForm = ({ isOpen, onClose }: FormCommentProps) => {
 		console.log(data);
 	};
 
+	useEffect(() => {
+		if (data) {
+			reset(data);
+		}
+	}, [data, reset]);
+
 	return (
 		<Modal
 			isOpen={isOpen}
 			onClose={onClose}>
-			<Typography variant='h2'>Crear comentario</Typography>
+			<Typography variant='h2'>
+				{mode === 'create' ? 'Crear comentario' : 'Editar comentario'}
+			</Typography>
 
 			<form
 				onSubmit={handleSubmit(onSubmit)}
@@ -62,8 +72,8 @@ export const CommentForm = ({ isOpen, onClose }: FormCommentProps) => {
 				<Button
 					variant='withIcon'
 					type='submit'>
-					<CircleFadingPlus />
-					Crear comentario
+					{mode === 'create' ? <CircleFadingPlus /> : <PencilLine />}
+					{mode === 'create' ? 'Crear comentario' : 'Editar comentario'}
 				</Button>
 			</form>
 		</Modal>

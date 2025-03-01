@@ -1,9 +1,14 @@
+'use client';
+
 import { PenLine, Trash } from 'lucide-react';
 import { Button } from '../shared/button/Button';
 import { Typography } from '../shared/typography';
 import { CommentEntity } from '@/core/entity';
+import { useFormStore } from '@/app/_providers/store';
 
-export const CommentCard = ({ body, email, name }: CommentEntity) => {
+export const CommentCard = ({ body, email, name, id }: CommentEntity) => {
+	const { onOpen } = useFormStore();
+
 	return (
 		<article className='comment-card'>
 			<Typography variant='h4'>{name}</Typography>
@@ -22,7 +27,9 @@ export const CommentCard = ({ body, email, name }: CommentEntity) => {
 						<Trash size={20} />
 					</Button>
 
-					<Button variant='icon'>
+					<Button
+						variant='icon'
+						onClick={() => onOpen('edit', { id, body, email, name })}>
 						<PenLine size={20} />
 					</Button>
 				</div>

@@ -1,6 +1,3 @@
-'use client';
-
-import { useState } from 'react';
 import {
 	CommentForm,
 	CommentCard,
@@ -9,11 +6,9 @@ import {
 } from './_components/comment';
 
 export default function Home() {
-	const [isOpen, setIsOpen] = useState(false);
-
 	return (
 		<main className='w-full min-h-screen p-md flex flex-column gap-md'>
-			<CommentHeader onOpen={() => setIsOpen(!isOpen)} />
+			<CommentHeader />
 
 			<section className='flex flex-column gap-md'>
 				<CommentSearchBar />
@@ -44,10 +39,7 @@ export default function Home() {
 						email='Yt4lB@example.com'
 					/>
 
-					<CommentForm
-						isOpen={isOpen}
-						onClose={() => setIsOpen(!isOpen)}
-					/>
+					<CommentForm />
 				</div>
 			</section>
 		</main>

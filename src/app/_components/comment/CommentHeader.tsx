@@ -1,16 +1,17 @@
+'use client';
+
 import { CircleFadingPlus } from 'lucide-react';
 import { Button } from '../shared/button/Button';
+import { useFormStore } from '@/app/_providers/store';
 
-interface CommentHeaderProps {
-	onOpen: () => void;
-}
+export const CommentHeader = () => {
+	const { onOpen } = useFormStore();
 
-export const CommentHeader = ({ onOpen }: CommentHeaderProps) => {
 	return (
 		<header className='flex justify-end w-full'>
 			<Button
 				variant='withIcon'
-				onClick={onOpen}
+				onClick={() => onOpen('create')}
 				type='button'>
 				Crear comentario <CircleFadingPlus />
 			</Button>
